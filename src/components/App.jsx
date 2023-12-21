@@ -11,12 +11,19 @@ export class App extends Component {
   state = {
     photo: [],
     error: '',
-    search: null,
+    // search: null,
     page: 1,
     isShowModal: false,
     totalPages: null,
     id: null,
     isLoading: false,
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.search !== this.state.search || prevState.page !== this.state.page) {
+      const { search, page } = this.state
+      this.getPhoto(search, page)
+    }
   }
 
   getPhoto = async (search, page) => {
@@ -57,13 +64,6 @@ export class App extends Component {
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.search !== this.state.search || prevState.page !== this.state.page) {
-      const { search, page } = this.state
-      this.getPhoto(search, page)
-    }
-  }
-
   onLoadMoreButton = () => {
     this.setState((prevState) => ({
       page: prevState.page + 1,
@@ -79,13 +79,14 @@ export class App extends Component {
     }
   
   render() {
-    const { photo, totalPages, page, isShowModal, id, isLoading, error } = this.state
+    const { photo, search, totalPages, page, isShowModal, id, isLoading, error } = this.state
     const result = this.state.photo.find((el) => el.id === this.state.id)
     
     return (
        <>
         <Searchbar
           addSearch={this.addSearch}
+          value={search}
         />
         {photo.length > 0 &&
           <ImageGallery
@@ -105,9 +106,10 @@ export class App extends Component {
         {isShowModal &&
           id !== null &&
           <Modal
-            photo={result}
             onClose={this.toggleModal}
-          />}
+          >
+            <img src={result.largeImageURL} alt={result.tag} />
+          </Modal>}
         
         {error &&
           <h1 style={{

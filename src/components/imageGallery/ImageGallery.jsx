@@ -1,13 +1,12 @@
 import css from './imageGallery.module.css'
 import ImageGalleryItem from "./ImageGalleryItem"
-import { nanoid } from 'nanoid'
 
 const ImageGallery = ({ photo, onClick}) => {
   return (
     <ul className={css.ImageGallery}>
-      {photo.map(el => (
+      {photo.map((el, i)=> (
         <ImageGalleryItem
-          key={nanoid()}
+          key={el.id+i}
           photoData={el}
           onClick={onClick}
         />

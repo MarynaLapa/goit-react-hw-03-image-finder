@@ -17,13 +17,18 @@ export default class Modal extends Component {
         }
     }
   
+    handlerCloseModal = e => {
+        if (e.currentTarget === e.target) {
+            this.props.onClose();
+        }
+    }
+
     render() {
-        const {onClose, photo } = this.props
         
         return (
-            <div className={css.Overlay} onClick={onClose}>
+            <div className={css.Overlay} onClick={this.handlerCloseModal}>
                 <div className={css.Modal} onClick={this.handlerClick}>
-                    <img src={photo.largeImageURL} alt={photo.tag} />
+                    {this.props.children}
                 </div>
             </div>
         )

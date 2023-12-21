@@ -5,29 +5,36 @@ import {ReactComponent as Search} from 'components/icon/search.svg'
 class Searchbar extends Component {
   state = {
     search: '',
-    page: 1,
   }
   
-  handlerSearch = ({target: {value}}) => {
-    this.setState({
-      search: value,
+  handlerSearch = ({target: { value } }) => {
+    console.log(value)
+    value ===''? alert ('Enter data to search') : this.setState({
+      search: value.toLowerCase(),
+      photo: [],
       page: 1,
-    })
+    })    
   }
-  
+
   handlerSubmit = (e) => {
     e.preventDefault()
+    
+    if (this.state.search === e.target.value) {
+      if (!e.target.value) return 
+      return alert (`You have already viewed this ${e.target.value}`)      
+    }
     this.props.addSearch(this.state)
   }
 
   render() {
+    console.log(this.state)
     return (
       <header className={css.Searchbar}>
-        <form className={css.SearchForm}>
+        <form className={css.SearchForm} onClick={this.handlerSubmit}>
           <button
             type="submit"
             className={css.SearchFormButton}
-            onClick={this.handlerSubmit}>
+          >
             <Search width='28' height='28' stroke="#3f51b5"/>
           </button>
 
@@ -35,7 +42,6 @@ class Searchbar extends Component {
             className={css.SearchFormInput}
             type="text"
             autoComplete="off"
-            value={this.state.search}
             onChange={this.handlerSearch}
             autoFocus
             placeholder="Search images and photos"
