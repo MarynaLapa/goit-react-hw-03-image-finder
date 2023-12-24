@@ -85,7 +85,7 @@ export class App extends Component {
     }
   
   render() {
-    const { photo, search, totalPages, page, isShowModal, id, isLoading, error } = this.state
+    const { photo, totalPages, page, isShowModal, id, isLoading, error } = this.state
     const result = this.state.photo.find((el) => el.id === this.state.id)
     console.log(this.state)
     return (
