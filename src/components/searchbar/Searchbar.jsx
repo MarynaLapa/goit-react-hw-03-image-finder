@@ -4,26 +4,18 @@ import {ReactComponent as Search} from 'components/icon/search.svg'
 
 class Searchbar extends Component {
   state = {
-    search: '',
+    search: null,
   }
   
-  handlerSearch = ({target: { value } }) => {
-    console.log(value)
-    value ===''? alert ('Enter data to search') : this.setState({
+  handlerSearch = ({ target: { value } }) => {
+    this.setState({
       search: value.toLowerCase(),
-      photo: [],
-      page: 1,
     })    
   }
 
   handlerSubmit = (e) => {
     e.preventDefault()
-    
-    if (this.state.search === e.target.value) {
-      if (!e.target.value) return 
-      return alert (`You have already viewed this ${e.target.value}`)      
-    }
-    this.props.addSearch(this.state)
+    this.props.addSearch(this.state.search)
   }
 
   render() {

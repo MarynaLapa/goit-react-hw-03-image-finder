@@ -11,7 +11,7 @@ export class App extends Component {
   state = {
     photo: [],
     error: '',
-    // search: null,
+    search: null,
     page: 1,
     isShowModal: false,
     totalPages: null,
@@ -56,12 +56,18 @@ export class App extends Component {
     }
   }
  
-  addSearch = (data) => {
-    return this.setState({
-      search: data.search,
+  addSearch = (name) => {
+    console.log(name)
+
+     if (this.state.search === name) {
+      return alert(`You have already viewed this request!`)
+    }
+    this.setState({
+      search: name,
       photo: [],
-      page: data.page,
+      page: 1,
     })
+
   }
 
   onLoadMoreButton = () => {
@@ -81,12 +87,12 @@ export class App extends Component {
   render() {
     const { photo, search, totalPages, page, isShowModal, id, isLoading, error } = this.state
     const result = this.state.photo.find((el) => el.id === this.state.id)
-    
+    console.log(this.state)
     return (
        <>
         <Searchbar
           addSearch={this.addSearch}
-          value={search}
+          // value={search}
         />
         {photo.length > 0 &&
           <ImageGallery
