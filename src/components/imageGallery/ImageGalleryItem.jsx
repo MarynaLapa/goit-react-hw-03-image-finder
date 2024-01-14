@@ -9,7 +9,7 @@ class ImageGalleryItem extends Component {
 
         return (
             <>
-                <li className={css.ImageGalleryItem} onClick={()=> onClick(this.props.photoData.id)}>
+                <li className={css.ImageGalleryItem} onClick={() => onClick({ src: photoData.largeImageURL, alt: photoData.tags })}>
                     <img
                         className={css.Image}
                         src={photoData.webformatURL}

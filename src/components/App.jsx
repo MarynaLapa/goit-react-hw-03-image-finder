@@ -15,7 +15,7 @@ export class App extends Component {
     page: 1,
     isShowModal: false,
     totalPages: null,
-    id: null,
+    img: null,
     isLoading: false,
   }
 
@@ -57,7 +57,6 @@ export class App extends Component {
   }
  
   addSearch = (name) => {
-    console.log(name)
 
      if (this.state.search === name) {
       return alert(`You have already viewed this request!`)
@@ -76,18 +75,23 @@ export class App extends Component {
     }))
   }
 
-  toggleModal = (id) => {
-        this.setState(({ isShowModal })=> ({
-          isShowModal: !isShowModal,
-          id: id,
-        })) 
-    
+  getLargeImageURL = (img) => {
+    console.log(img)
+    this.setState({
+      isShowModal: true,
+      img: img,
+    })
+  }
+  
+  toggleModal = () => {
+        this.setState({
+          isShowModal: false,
+          img: '',
+        }) 
     }
   
   render() {
-    const { photo, totalPages, page, isShowModal, id, isLoading, error } = this.state
-    const result = this.state.photo.find((el) => el.id === this.state.id)
-    console.log(this.state)
+    const { photo, totalPages, page, isShowModal, id, isLoading, error, img } = this.state
     return (
        <>
         <Searchbar
@@ -96,7 +100,7 @@ export class App extends Component {
         />
         {photo.length > 0 &&
           <ImageGallery
-            onClick={this.toggleModal}
+            onClick={this.getLargeImageURL}
             photo={photo}
           />}
 
@@ -114,7 +118,7 @@ export class App extends Component {
           <Modal
             onClose={this.toggleModal}
           >
-            <img src={result.largeImageURL} alt={result.tag} />
+            <img src={img.src} alt={img.alt} />
           </Modal>}
         
         {error &&

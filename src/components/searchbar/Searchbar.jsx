@@ -22,7 +22,7 @@ class Searchbar extends Component {
     console.log(this.state)
     return (
       <header className={css.Searchbar}>
-        <form className={css.SearchForm} onClick={this.handlerSubmit}>
+        <form className={css.SearchForm} onSubmit={this.handlerSubmit}>
           <button
             type="submit"
             className={css.SearchFormButton}
@@ -33,6 +33,7 @@ class Searchbar extends Component {
           <input
             className={css.SearchFormInput}
             type="text"
+            name='search'
             autoComplete="off"
             onChange={this.handlerSearch}
             autoFocus
